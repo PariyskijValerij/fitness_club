@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using fitness_club.Data;
+
+namespace fitness_club.Forms
+{
+    public partial class ClientRegistrationForm : Form
+    {
+        private readonly UserRepository _userRepository = new UserRepository();
+        private readonly ClientRepository _clientRepository = new ClientRepository();
+
+        public ClientRegistrationForm()
+        {
+            InitializeComponent();
+
+            cbGender.Items.Clear();
+            cbGender.Items.Add("Male");
+            cbGender.Items.Add("Female");
+            cbGender.Items.Add("Other");
+            cbGender.SelectedIndex = 0;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCreateAccount_Click(object sender, EventArgs e)
+        {
+            lblLoginError.Visible = false;
+            lblPasswordError.Visible = false;
+            lblConfirmPasswordError.Visible = false;
+            lblFullNameError.Visible = false;
+            lblGenderError.Visible = false;
+            lblGeneralError.Visible = false;
+
+            bool hasError = false;
+
+            string login = txtLogin.Text.Trim();
+            string password = txtPassword.Text;
+            string confirmPassword = txtConfirmPassword.Text;
+            string fullName = txtFullName.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string email = txtEmail.Text.Trim();
+
+            if (string.IsNullOrEmpty(login))
+            {
+                lblLoginError.Text = "Login is required.";
+                lblLoginError.Visible = true;
+                hasError = true;
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                lblPasswordError.Text = "Password is required.";
+                lblPasswordError.Visible = true;
+                hasError = true;
+            }
+            if (password != confirmPassword)
+            {
+                lblConfirmPasswordError.Text = "Passwords do not match.";
+                lblConfirmPasswordError.Visible = true;
+                hasError = true;
+            }
+            if (string.IsNullOrEmpty(fullName))
+            {
+                lblFullNameError.Text = "Full name is required.";
+                lblFullNameError.Visible = true;
+                hasError = true;
+            }
+            if (cbGender.SelectedItem == null)
+            {
+                lblGenderError.Text = "Select gender";
+                lblGenderError.Visible = true;
+                hasError = true;
+            }
+
+            if (hasError)
+            {
+                return;
+            }
+
+            try
+            {
+                if (_userRepository.isLoginTaken(login))
+                {
+                    lblLoginError.Text = "Login is already taken.";
+                    lblLoginError.Visible = true;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblGeneralError.Text = "An error occurred while checking login availability." + ex.Message;
+                lblGeneralError.Visible = true;
+                return;
+            }
+
+            string genderDb;
+            switch (cbGender.SelectedItem.ToString())
+            {
+                case "Male":
+                    genderDb = "male";
+                    break;
+                case "Female":
+                    genderDb = "female";
+                    break;
+                default:
+                    genderDb = "other";
+                    break;
+            }
+
+            DateTime? birthDate = null;
+            if (dtpBirthDate.Checked)
+            {
+                birthDate = dtpBirthDate.Value.Date;
+            }
+
+            try
+            {
+                int newUserId = _userRepository.CreateUser(login, password, "client");
+                _clientRepository.CreateClient(newUserId, fullName, phone, email, birthDate, genderDb);
+            }
+            catch (Exception ex)
+            {
+                lblGeneralError.Text = "An error occurred while creating the account." + ex.Message;
+                lblGeneralError.Visible = true;
+                return;
+            }
+
+            MessageBox.Show("Account created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
+    }
+}
