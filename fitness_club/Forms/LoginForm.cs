@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using fitness_club.Forms;
+using System;
 using System.Windows.Forms;
-using fitness_club.Data;
-using fitness_club.Forms;
 
 namespace fitness_club
 {
@@ -53,7 +45,7 @@ namespace fitness_club
             {
                 user = _userRepository.GetByLoginAndPassword(login, password);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while accessing the database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -66,16 +58,16 @@ namespace fitness_club
                 return;
             }
 
-            if(user.UserStatus == "blocked")
+            if (user.UserStatus == "blocked")
             {
                 lblAuthError.Text = "Your account is blocked. Please contact support.";
                 lblAuthError.Visible = true;
                 return;
             }
 
-            MessageBox.Show($"Welcome, {user.Login}! You are logged in as {user.Role}.");
+            //MessageBox.Show($"Welcome, {user.Login}! You are logged in as {user.Role}.");
 
-            if(user.Role == "admin")
+            if (user.Role == "admin")
             {
                 using (var adminForm = new AdminForm())
                 {

@@ -177,6 +177,7 @@
             // 
             // cbGender
             // 
+            this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cbGender.FormattingEnabled = true;
             this.cbGender.Location = new System.Drawing.Point(239, 303);
@@ -326,6 +327,7 @@
             this.Controls.Add(this.txtLogin);
             this.Controls.Add(this.lblLogin);
             this.Name = "ClientRegistrationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RegistrationForm";
             this.ResumeLayout(false);
             this.PerformLayout();

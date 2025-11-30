@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
+using System;
 
 namespace fitness_club
 {
@@ -16,7 +12,7 @@ namespace fitness_club
                 SELECT user_id, login, role, user_status
                 FROM app_user
                 WHERE login = @login AND password_hash = @password
-                LIMIT 1", conn)) 
+                LIMIT 1", conn))
             {
                 cmd.Parameters.AddWithValue("@login", login);
                 cmd.Parameters.AddWithValue("@password", password);
@@ -46,7 +42,7 @@ namespace fitness_club
             using (var cmd = new MySqlCommand(@"
                 SELECT COUNT(user_id) 
                 FROM app_user
-                WHERE login = @login", conn)) 
+                WHERE login = @login", conn))
             {
                 cmd.Parameters.AddWithValue("@login", login);
                 conn.Open();
