@@ -139,7 +139,7 @@
             this.Controls.Add(this.chkKharkiv);
             this.Name = "ClubFilterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ClubFilterForm";
+            this.Text = "Club Filters";
             this.Load += new System.EventHandler(this.ClubFilterForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

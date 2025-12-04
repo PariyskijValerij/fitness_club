@@ -1,13 +1,7 @@
 ﻿using fitness_club.Data;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace fitness_club.Forms
@@ -29,7 +23,7 @@ namespace fitness_club.Forms
 
         private void RoomManagementForm_Load(object sender, EventArgs e)
         {
-            if(lblTitle != null)
+            if (lblTitle != null)
             {
                 lblTitle.Text = $"Rooms of club: {_clubName}";
             }
@@ -132,21 +126,18 @@ namespace fitness_club.Forms
             {
                 if (ex.Number == 1451)
                 {
-                    MessageBox.Show(
-                        "Cannot delete this room because it has related sessions.\n" +
+                    MessageBox.Show("Cannot delete this room because it has related sessions.\n" +
                         "Delete or reassign these sessions first.",
                         "Delete room", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("Error while deleting room: " + ex.Message,
-                        "Delete room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error while deleting room: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while deleting room: " + ex.Message,
-                    "Delete room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while deleting room: " + ex.Message);
             }
         }
     }

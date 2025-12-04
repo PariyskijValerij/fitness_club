@@ -152,7 +152,7 @@
             this.Controls.Add(this.dgvClients);
             this.Name = "ClientManagementForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ClientManagementForm";
+            this.Text = "Clients Management";
             this.Load += new System.EventHandler(this.ClientManagementForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClients)).EndInit();
             this.ResumeLayout(false);

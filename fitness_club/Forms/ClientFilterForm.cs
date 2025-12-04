@@ -90,6 +90,7 @@ namespace fitness_club.Forms
         private void dtpRegTo_ValueChanged(object sender, EventArgs e)
         {
             dtpRegFrom.MaxDate = dtpRegTo.Value.Date;
+            dtpRegTo.MaxDate = DateTime.Today;
 
             if (dtpRegFrom.Value > dtpRegTo.Value)
             {

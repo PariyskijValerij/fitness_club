@@ -1,8 +1,6 @@
 ﻿using fitness_club.Data;
 using System;
-using System.Globalization;
 using System.Windows.Forms;
-using static System.Windows.Forms.MonthCalendar;
 
 namespace fitness_club.Forms
 {
@@ -25,7 +23,7 @@ namespace fitness_club.Forms
             InitTitle();
         }
 
-        public RoomEditForm(int clubId, string clubName, int roomId, string roomNumber, int? floor, decimal? area, int capacity, 
+        public RoomEditForm(int clubId, string clubName, int roomId, string roomNumber, int? floor, decimal? area, int capacity,
             string equipment, string statusDb)
             : this(clubId, clubName)
         {
@@ -103,9 +101,9 @@ namespace fitness_club.Forms
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error while saving room");
+                MessageBox.Show("Error while saving room" + ex.Message);
             }
         }
 

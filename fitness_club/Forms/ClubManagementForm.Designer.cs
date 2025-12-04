@@ -166,7 +166,7 @@
             this.Controls.Add(this.dgvClubs);
             this.Name = "ClubManagementForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ClubManagementForm";
+            this.Text = "Clubs Management";
             this.Load += new System.EventHandler(this.ClubManagementForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClubs)).EndInit();
             this.ResumeLayout(false);

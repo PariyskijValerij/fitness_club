@@ -67,5 +67,29 @@ namespace fitness_club
                 return Convert.ToInt32(result);
             }
         }
+
+        public void UpdateUserStatusByClient(int clientId, string clientStatus)
+        {
+            string newUserStatus;
+
+            if (clientStatus == "blocked")
+                newUserStatus = "blocked";
+            else
+                newUserStatus = "active";
+
+            using (var conn = DbHelper.GetConnection())
+            using (var cmd = new MySqlCommand(@"
+                UPDATE app_user u
+                JOIN client c ON u.user_id = c.user_id
+                SET u.user_status = @userStatus
+                WHERE c.client_id = @clientId;", conn))
+            {
+                cmd.Parameters.AddWithValue("@userStatus", newUserStatus);
+                cmd.Parameters.AddWithValue("@clientId", clientId);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

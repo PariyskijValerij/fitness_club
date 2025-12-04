@@ -65,7 +65,7 @@ namespace fitness_club
                 return;
             }
 
-            //MessageBox.Show($"Welcome, {user.Login}! You are logged in as {user.Role}.");
+            MessageBox.Show($"Welcome, {user.Login}! You are logged in as {user.Role}.");
 
             if (user.Role == "admin")
             {
@@ -76,7 +76,7 @@ namespace fitness_club
                     this.Show();
                 }
             }
-            //else if(user.Role == "client")
+            //else if (user.Role == "client")
             //{
             //    using (var clientForm = new ClientDashboardForm(user))
             //    {

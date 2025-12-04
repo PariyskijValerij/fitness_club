@@ -33,7 +33,7 @@ namespace fitness_club.Forms
 
         private void btnClientSearch_Click(object sender, EventArgs e)
         {
-            string term = txtClientSearch.Text.Trim().ToLower();
+            string term = txtClientSearch.Text.Trim();
 
             if (string.IsNullOrEmpty(term))
             {
@@ -210,12 +210,12 @@ namespace fitness_club.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Error while deleting client: ");
+                    MessageBox.Show("Error while deleting client: " + ex.Message);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error while deleting client: ");
+                MessageBox.Show("Error while deleting client: " + ex.Message);
             }
         }
     }

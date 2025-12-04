@@ -33,7 +33,7 @@ namespace fitness_club.Forms
 
         private void btnClubSearch_Click(object sender, EventArgs e)
         {
-            string term = txtClubSearch.Text.Trim().ToLower();
+            string term = txtClubSearch.Text.Trim();
             if (string.IsNullOrEmpty(term))
             {
                 ClearClubsRowColors();
@@ -192,12 +192,12 @@ namespace fitness_club.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Error while deleting club");
+                    MessageBox.Show("Error while deleting club: " + ex.Message);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error while deleting club");
+                MessageBox.Show("Error while deleting club: " + ex.Message);
             }
         }
 
@@ -208,7 +208,7 @@ namespace fitness_club.Forms
                 return;
             }
 
-            var row  = dgvClubs.SelectedRows[0];
+            var row = dgvClubs.SelectedRows[0];
 
             int clubId = Convert.ToInt32(row.Cells["club_id"].Value);
             string clubName = row.Cells["club_name"].Value?.ToString() ?? "";

@@ -254,7 +254,7 @@
             this.Controls.Add(this.label3);
             this.Name = "RoomEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RoomEditForm";
+            this.Text = "Edit/Add Room";
             ((System.ComponentModel.ISupportInitialize)(this.nudFloor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCapacity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudArea)).EndInit();

@@ -200,7 +200,7 @@
             this.Controls.Add(this.chkMale);
             this.Name = "ClientFilterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ClientFilterForm";
+            this.Text = "Client Filters";
             this.Load += new System.EventHandler(this.ClientFilterForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

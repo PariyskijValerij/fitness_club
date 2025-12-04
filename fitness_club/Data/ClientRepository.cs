@@ -55,9 +55,9 @@ namespace fitness_club.Data
                 cmd.Connection = conn;
 
                 string sql = @"
-                SELECT client_id, user_id, client_full_name, client_phone, client_email,
-                birth_date, registration_date, client_gender, client_status
-                FROM client
+                SELECT c.client_id, c.user_id, u.login, u.password_hash, c.client_full_name, c.client_phone, c.client_email,
+                c.birth_date, c.registration_date, c.client_gender, c.client_status
+                FROM client c JOIN app_user u ON u.user_id = c.user_id
                 WHERE 1=1";
 
                 if (filter != null)

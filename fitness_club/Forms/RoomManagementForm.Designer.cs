@@ -104,7 +104,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "RoomManagementForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RoomManagementForm";
+            this.Text = "Rooms Management";
             this.Load += new System.EventHandler(this.RoomManagementForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRooms)).EndInit();
             this.ResumeLayout(false);

@@ -25,5 +25,21 @@ namespace fitness_club.Forms
                 clubForm.ShowDialog();
             }
         }
+
+        private void btnManageMembershipTypes_Click(object sender, EventArgs e)
+        {
+            using (var form = new MembershipTypeManagementForm())
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void btnStatistics_Click(object sender, EventArgs e)
+        {
+            using (var form = new StatisticsForm())
+            {
+                form.ShowDialog(this);
+            }
+        }
     }
 }

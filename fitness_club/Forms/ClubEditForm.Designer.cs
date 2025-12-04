@@ -70,8 +70,9 @@
             // 
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtDescription.Location = new System.Drawing.Point(240, 50);
+            this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(180, 26);
+            this.txtDescription.Size = new System.Drawing.Size(180, 20);
             this.txtDescription.TabIndex = 40;
             // 
             // label2
@@ -221,7 +222,7 @@
             this.Controls.Add(this.label3);
             this.Name = "ClubEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ClubEditForm";
+            this.Text = "Edit/Add Club";
             this.ResumeLayout(false);
             this.PerformLayout();
 

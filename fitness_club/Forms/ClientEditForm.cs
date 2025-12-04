@@ -7,6 +7,7 @@ namespace fitness_club.Forms
     public partial class ClientEditForm : Form
     {
         private readonly ClientRepository _clientRepository = new ClientRepository();
+        private readonly UserRepository _userRepository  = new UserRepository();
         private readonly int _clientId;
 
         public ClientEditForm(int clientId, string fullName, string phone, string email, DateTime? birthDate, string genderDb, string statusDb)
@@ -138,6 +139,7 @@ namespace fitness_club.Forms
             try
             {
                 _clientRepository.UpdateClient(_clientId, fullName, phone, email, birthDate, genderDb, statusDb);
+                _userRepository.UpdateUserStatusByClient(_clientId, statusDb);
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();

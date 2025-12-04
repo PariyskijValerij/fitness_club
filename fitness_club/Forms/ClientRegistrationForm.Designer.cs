@@ -328,7 +328,7 @@
             this.Controls.Add(this.lblLogin);
             this.Name = "ClientRegistrationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RegistrationForm";
+            this.Text = "Registration";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -28,50 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.cbGender = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtPhone = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtFullName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.txtFullName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbGender = new System.Windows.Forms.ComboBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // txtEmail
+            // label3
             // 
-            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtEmail.Location = new System.Drawing.Point(21, 122);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(180, 26);
-            this.txtEmail.TabIndex = 40;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label3.Location = new System.Drawing.Point(17, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 20);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Full name";
             // 
-            // label7
+            // txtFullName
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label7.Location = new System.Drawing.Point(17, 95);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 20);
-            this.label7.TabIndex = 39;
-            this.label7.Text = "Email";
+            this.txtFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtFullName.Location = new System.Drawing.Point(21, 44);
+            this.txtFullName.Name = "txtFullName";
+            this.txtFullName.Size = new System.Drawing.Size(180, 26);
+            this.txtFullName.TabIndex = 30;
             // 
-            // btnSave
+            // label2
             // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnSave.Location = new System.Drawing.Point(325, 321);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(111, 31);
-            this.btnSave.TabIndex = 38;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label2.Location = new System.Drawing.Point(232, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 20);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "Phone";
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtPhone.Location = new System.Drawing.Point(236, 44);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(180, 26);
+            this.txtPhone.TabIndex = 32;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label5.Location = new System.Drawing.Point(232, 95);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 20);
+            this.label5.TabIndex = 33;
+            this.label5.Text = "Birth date";
+            // 
+            // dtpBirthDate
+            // 
+            this.dtpBirthDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.dtpBirthDate.Location = new System.Drawing.Point(236, 122);
+            this.dtpBirthDate.Name = "dtpBirthDate";
+            this.dtpBirthDate.ShowCheckBox = true;
+            this.dtpBirthDate.Size = new System.Drawing.Size(180, 20);
+            this.dtpBirthDate.TabIndex = 34;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label6.Location = new System.Drawing.Point(17, 177);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 20);
+            this.label6.TabIndex = 35;
+            this.label6.Text = "Gender";
+            // 
+            // cbGender
+            // 
+            this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.cbGender.FormattingEnabled = true;
+            this.cbGender.Location = new System.Drawing.Point(21, 200);
+            this.cbGender.Name = "cbGender";
+            this.cbGender.Size = new System.Drawing.Size(180, 28);
+            this.cbGender.TabIndex = 36;
             // 
             // btnCancel
             // 
@@ -84,90 +130,34 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // cbGender
+            // btnSave
             // 
-            this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.cbGender.FormattingEnabled = true;
-            this.cbGender.Location = new System.Drawing.Point(21, 200);
-            this.cbGender.Name = "cbGender";
-            this.cbGender.Size = new System.Drawing.Size(180, 28);
-            this.cbGender.TabIndex = 36;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnSave.Location = new System.Drawing.Point(325, 321);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(111, 31);
+            this.btnSave.TabIndex = 38;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // label6
+            // label7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(17, 177);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(63, 20);
-            this.label6.TabIndex = 35;
-            this.label6.Text = "Gender";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label7.Location = new System.Drawing.Point(17, 95);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 20);
+            this.label7.TabIndex = 39;
+            this.label7.Text = "Email";
             // 
-            // dtpBirthDate
+            // txtEmail
             // 
-            this.dtpBirthDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.dtpBirthDate.Location = new System.Drawing.Point(236, 122);
-            this.dtpBirthDate.Name = "dtpBirthDate";
-            this.dtpBirthDate.ShowCheckBox = true;
-            this.dtpBirthDate.Size = new System.Drawing.Size(180, 20);
-            this.dtpBirthDate.TabIndex = 34;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label5.Location = new System.Drawing.Point(232, 95);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 20);
-            this.label5.TabIndex = 33;
-            this.label5.Text = "Birth date";
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtPhone.Location = new System.Drawing.Point(236, 44);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(180, 26);
-            this.txtPhone.TabIndex = 32;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(232, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 20);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "Phone";
-            // 
-            // txtFullName
-            // 
-            this.txtFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtFullName.Location = new System.Drawing.Point(21, 44);
-            this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(180, 26);
-            this.txtFullName.TabIndex = 30;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(17, 17);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 20);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "Full name";
-            // 
-            // cbStatus
-            // 
-            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(236, 200);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(180, 28);
-            this.cbStatus.TabIndex = 42;
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtEmail.Location = new System.Drawing.Point(21, 122);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(180, 26);
+            this.txtEmail.TabIndex = 40;
             // 
             // label1
             // 
@@ -178,6 +168,16 @@
             this.label1.Size = new System.Drawing.Size(56, 20);
             this.label1.TabIndex = 41;
             this.label1.Text = "Status";
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Location = new System.Drawing.Point(236, 200);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(180, 28);
+            this.cbStatus.TabIndex = 42;
             // 
             // ClientEditForm
             // 
@@ -200,7 +200,7 @@
             this.Controls.Add(this.label3);
             this.Name = "ClientEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ClientEditForm";
+            this.Text = "Edit Client";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,19 +208,19 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.ComboBox cbGender;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dtpBirthDate;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtPhone;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtFullName;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cbStatus;
+        private System.Windows.Forms.TextBox txtFullName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dtpBirthDate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbGender;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbStatus;
     }
 }
