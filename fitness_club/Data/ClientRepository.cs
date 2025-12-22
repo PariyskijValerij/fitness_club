@@ -7,6 +7,8 @@ namespace fitness_club.Data
 {
     public class ClientRepository
     {
+        private readonly UserRepository _userRepository = new UserRepository();
+
         public void CreateClient(int userId, string fullName, string phone, string email,
             DateTime? birthDate, string gender)
         {
@@ -55,8 +57,8 @@ namespace fitness_club.Data
                 cmd.Connection = conn;
 
                 string sql = @"
-                SELECT c.client_id, c.user_id, u.login, u.password_hash, c.client_full_name, c.client_phone, c.client_email,
-                c.birth_date, c.registration_date, c.client_gender, c.client_status
+                SELECT c.client_id, c.user_id, u.login, c.client_full_name, c.client_phone, c.client_email,
+                c.birth_date, c.registration_date, c.client_gender, c.client_status, u.user_status
                 FROM client c JOIN app_user u ON u.user_id = c.user_id
                 WHERE 1=1";
 
@@ -133,11 +135,17 @@ namespace fitness_club.Data
             return table;
         }
 
-        public void UpdateClient(int clientId, string fullName, string phone, string email,
+        public void UpdateClient(int clientId, int userId, string login, string newPassword, string fullName, string phone, string email,
             DateTime? birthDate, string genderDb, string statusDb)
         {
             using (var conn = DbHelper.GetConnection())
-            using (var cmd = new MySqlCommand(@"
+            {
+                conn.Open();
+
+                string userStatusDb = (statusDb == "blocked") ? "blocked" : "active";
+                _userRepository.UpdateUser(userId, login, newPassword, userStatusDb);
+
+                using (var cmd = new MySqlCommand(@"
                 UPDATE client
                 SET client_full_name = @fullName,
                     client_phone = @phone,
@@ -146,31 +154,42 @@ namespace fitness_club.Data
                     client_gender = @gender,
                     client_status = @status
                 WHERE client_id = @id", conn))
-            {
-                cmd.Parameters.AddWithValue("@fullName", fullName);
-                cmd.Parameters.AddWithValue("@phone", string.IsNullOrEmpty(phone) ? (object)DBNull.Value : phone);
-                cmd.Parameters.AddWithValue("@email", string.IsNullOrEmpty(email) ? (object)DBNull.Value : email);
-                cmd.Parameters.AddWithValue("@birth", birthDate.HasValue ? (object)birthDate.Value : DBNull.Value);
-                cmd.Parameters.AddWithValue("@gender", genderDb);
-                cmd.Parameters.AddWithValue("@status", statusDb);
-                cmd.Parameters.AddWithValue("@id", clientId);
+                {
+                    cmd.Parameters.AddWithValue("@fullName", fullName);
+                    cmd.Parameters.AddWithValue("@phone", string.IsNullOrEmpty(phone) ? (object)DBNull.Value : phone);
+                    cmd.Parameters.AddWithValue("@email", string.IsNullOrEmpty(email) ? (object)DBNull.Value : email);
+                    cmd.Parameters.AddWithValue("@birth", birthDate.HasValue ? (object)birthDate.Value : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@gender", genderDb);
+                    cmd.Parameters.AddWithValue("@status", statusDb);
+                    cmd.Parameters.AddWithValue("@id", clientId);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
+
         }
 
-        public void DeleteClient(int clientId)
+        public void DeleteClientWithUser(int clientId, int userId)
         {
             using (var conn = DbHelper.GetConnection())
-            using (var cmd = new MySqlCommand(
-                "DELETE FROM client WHERE client_id = @id;", conn))
             {
-                cmd.Parameters.AddWithValue("@id", clientId);
-
                 conn.Open();
-                cmd.ExecuteNonQuery();
+
+                using (var cmd = new MySqlCommand(
+                    "DELETE FROM client WHERE client_id = @id;", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", clientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                using (var cmdUser = new MySqlCommand(
+                    "DELETE FROM app_user WHERE user_id = @uid;", conn))
+                {
+                    cmdUser.Parameters.AddWithValue("@uid", userId);
+                    cmdUser.ExecuteNonQuery();
+                }
             }
+
         }
     }
 }

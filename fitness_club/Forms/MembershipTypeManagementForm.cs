@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace fitness_club.Forms
@@ -10,6 +11,7 @@ namespace fitness_club.Forms
     {
         private readonly MembershipTypeRepository _membershiptypeRepository = new MembershipTypeRepository();
         private DataTable _membeshipTypesTable;
+        private MembershipTypeFilter _currentFilter = new MembershipTypeFilter();
 
         public MembershipTypeManagementForm()
         {
@@ -23,7 +25,7 @@ namespace fitness_club.Forms
 
         private void LoadMembershipTypes()
         {
-            _membeshipTypesTable = _membershiptypeRepository.GetAllMembershipTypes();
+            _membeshipTypesTable = _membershiptypeRepository.GetMembershipTypesByFilter(_currentFilter);
             dgvMembershipTypes.DataSource = _membeshipTypesTable;
             dgvMembershipTypes.ClearSelection();
         }
@@ -115,6 +117,68 @@ namespace fitness_club.Forms
             {
                 MessageBox.Show("Error while deleting membership type: " + ex.Message);
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string term = txtSearch.Text.Trim();
+
+            if (string.IsNullOrEmpty(term))
+            {
+                ClearRowColors();
+                return;
+            }
+
+            ClearRowColors();
+
+            foreach (DataGridViewRow row in dgvMembershipTypes.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string name = row.Cells["membership_name"].Value?.ToString() ?? "";
+                string desc = row.Cells["membership_description"].Value?.ToString() ?? "";
+
+                bool match =
+                    name.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    desc.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0;
+
+                row.DefaultCellStyle.BackColor = match ? Color.LightGreen : Color.LightPink;
+            }
+        }
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            ClearRowColors();
+            dgvMembershipTypes.ClearSelection();
+        }
+
+        private void ClearRowColors()
+        {
+            foreach (DataGridViewRow row in dgvMembershipTypes.Rows)
+            {
+                if (row.IsNewRow) continue;
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            using (var form = new MembershipTypeFilterForm(_currentFilter))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    _currentFilter = form.Filter;
+                    string currentSearch = txtSearch.Text.Trim();
+                    LoadMembershipTypes();
+                }
+            }
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            _currentFilter = new MembershipTypeFilter();
+            LoadMembershipTypes();
         }
     }
 }

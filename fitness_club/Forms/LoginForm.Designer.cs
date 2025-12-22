@@ -145,6 +145,7 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "Register as Trainer";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // label2
             // 
@@ -155,6 +156,7 @@
             this.label2.Size = new System.Drawing.Size(110, 17);
             this.label2.TabIndex = 10;
             this.label2.Text = "Are you trainer?";
+            this.label2.Visible = false;
             // 
             // LoginForm
             // 

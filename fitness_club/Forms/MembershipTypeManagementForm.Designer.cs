@@ -28,27 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnRooms = new System.Windows.Forms.Button();
             this.btnDeleteMembershipType = new System.Windows.Forms.Button();
             this.btnEditMembershipType = new System.Windows.Forms.Button();
             this.btnAddMembershipType = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
             this.btnClearFilter = new System.Windows.Forms.Button();
-            this.btnClubClearSearch = new System.Windows.Forms.Button();
-            this.btnClubSearch = new System.Windows.Forms.Button();
-            this.txtClubSearch = new System.Windows.Forms.TextBox();
+            this.btnClearSearch = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.dgvMembershipTypes = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembershipTypes)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnRooms
-            // 
-            this.btnRooms.Location = new System.Drawing.Point(266, 0);
-            this.btnRooms.Name = "btnRooms";
-            this.btnRooms.Size = new System.Drawing.Size(145, 23);
-            this.btnRooms.TabIndex = 26;
-            this.btnRooms.Text = "Memberships//TODO";
-            this.btnRooms.UseVisualStyleBackColor = true;
             // 
             // btnDeleteMembershipType
             // 
@@ -87,8 +77,9 @@
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(116, 29);
             this.btnFilter.TabIndex = 22;
-            this.btnFilter.Text = "FilterTODO";
+            this.btnFilter.Text = "Filter";
             this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // btnClearFilter
             // 
@@ -97,41 +88,47 @@
             this.btnClearFilter.Name = "btnClearFilter";
             this.btnClearFilter.Size = new System.Drawing.Size(116, 29);
             this.btnClearFilter.TabIndex = 21;
-            this.btnClearFilter.Text = "Clear Filter";
+            this.btnClearFilter.Text = "Clear";
             this.btnClearFilter.UseVisualStyleBackColor = true;
+            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
             // 
-            // btnClubClearSearch
+            // btnClearSearch
             // 
-            this.btnClubClearSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnClubClearSearch.Location = new System.Drawing.Point(473, 48);
-            this.btnClubClearSearch.Name = "btnClubClearSearch";
-            this.btnClubClearSearch.Size = new System.Drawing.Size(116, 29);
-            this.btnClubClearSearch.TabIndex = 20;
-            this.btnClubClearSearch.Text = "ClearTODO";
-            this.btnClubClearSearch.UseVisualStyleBackColor = true;
+            this.btnClearSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnClearSearch.Location = new System.Drawing.Point(473, 48);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(116, 29);
+            this.btnClearSearch.TabIndex = 20;
+            this.btnClearSearch.Text = "Clear";
+            this.btnClearSearch.UseVisualStyleBackColor = true;
+            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
             // 
-            // btnClubSearch
+            // btnSearch
             // 
-            this.btnClubSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnClubSearch.Location = new System.Drawing.Point(351, 48);
-            this.btnClubSearch.Name = "btnClubSearch";
-            this.btnClubSearch.Size = new System.Drawing.Size(116, 29);
-            this.btnClubSearch.TabIndex = 19;
-            this.btnClubSearch.Text = "SearchTODO";
-            this.btnClubSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnSearch.Location = new System.Drawing.Point(351, 48);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(116, 29);
+            this.btnSearch.TabIndex = 19;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // txtClubSearch
+            // txtSearch
             // 
-            this.txtClubSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.txtClubSearch.Location = new System.Drawing.Point(12, 48);
-            this.txtClubSearch.Name = "txtClubSearch";
-            this.txtClubSearch.Size = new System.Drawing.Size(333, 29);
-            this.txtClubSearch.TabIndex = 18;
+            this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.txtSearch.Location = new System.Drawing.Point(12, 48);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(333, 29);
+            this.txtSearch.TabIndex = 18;
             // 
             // dgvMembershipTypes
             // 
             this.dgvMembershipTypes.AllowUserToAddRows = false;
             this.dgvMembershipTypes.AllowUserToDeleteRows = false;
+            this.dgvMembershipTypes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMembershipTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMembershipTypes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvMembershipTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -149,15 +146,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 521);
-            this.Controls.Add(this.btnRooms);
             this.Controls.Add(this.btnDeleteMembershipType);
             this.Controls.Add(this.btnEditMembershipType);
             this.Controls.Add(this.btnAddMembershipType);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.btnClearFilter);
-            this.Controls.Add(this.btnClubClearSearch);
-            this.Controls.Add(this.btnClubSearch);
-            this.Controls.Add(this.txtClubSearch);
+            this.Controls.Add(this.btnClearSearch);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.dgvMembershipTypes);
             this.Name = "MembershipTypeManagementForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -170,16 +166,14 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnRooms;
         private System.Windows.Forms.Button btnDeleteMembershipType;
         private System.Windows.Forms.Button btnEditMembershipType;
         private System.Windows.Forms.Button btnAddMembershipType;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Button btnClearFilter;
-        private System.Windows.Forms.Button btnClubClearSearch;
-        private System.Windows.Forms.Button btnClubSearch;
-        private System.Windows.Forms.TextBox txtClubSearch;
+        private System.Windows.Forms.Button btnClearSearch;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DataGridView dgvMembershipTypes;
     }
 }

@@ -30,26 +30,6 @@ namespace fitness_club.Data
             return table;
         }
 
-        //public DataTable GetTrainerWorkload()
-        //{
-        //    var table = new DataTable();
-
-        //    using (var conn = DbHelper.GetConnection())
-        //    using (var cmd = new MySqlCommand(@"
-        //        SELECT t.trainer_id, t.trainer_name, c.club_name, COUNT(s.session_id) AS session_count, 
-        //        IFNULL(SUM(s.duration_min), 0) AS total_minutes
-        //        FROM trainer t JOIN club c ON c.club_id = t.club_id
-        //        LEFT JOIN session s ON t.trainer_id = s.trainer_id
-        //        GROUP BY t.trainer_id, t.trainer_name, c.club_name;", conn))
-        //    using (var adapter = new MySqlDataAdapter(cmd))
-        //    {
-        //        conn.Open();
-        //        adapter.Fill(table);
-        //    }
-
-        //    return table;
-        //}
-
         public DataTable GetSessionOccupancy()
         {
             var table = new DataTable();
@@ -79,8 +59,8 @@ namespace fitness_club.Data
             using (var conn = DbHelper.GetConnection())
             using (var cmd = new MySqlCommand(@"
                 SELECT mt.membership_name, 
-                       COUNT(m.membership_id) AS total_sold, 
-                       IFNULL(SUM(mt.price_per_month), 0) AS total_revenue
+                COUNT(m.membership_id) AS total_sold, 
+                IFNULL(SUM(mt.price_per_month), 0) AS total_revenue
                 FROM membership_type mt
                 LEFT JOIN membership m ON mt.membership_type_id = m.membership_type_id
                 GROUP BY mt.membership_type_id, mt.membership_name
@@ -145,6 +125,46 @@ namespace fitness_club.Data
                 cmd.Parameters.AddWithValue("@fromDate", fromDate.Date);
                 cmd.Parameters.AddWithValue("@toDate", toDate.Date);
 
+                conn.Open();
+                adapter.Fill(table);
+            }
+
+            return table;
+        }
+
+        public DataTable GetMostPopularMembershipType()
+        {
+            var table = new DataTable();
+
+            using (var conn = DbHelper.GetConnection())
+            using (var cmd = new MySqlCommand(@"
+            SELECT mt.membership_type_id, mt.membership_name, COUNT(m.membership_id) AS total_memberships
+            FROM membership_type mt
+            JOIN membership m ON m.membership_type_id = mt.membership_type_id
+            GROUP BY mt.membership_type_id, mt.membership_name
+            LIMIT 1;", conn))
+            using (var adapter = new MySqlDataAdapter(cmd))
+            {
+                conn.Open();
+                adapter.Fill(table);
+            }
+
+            return table;
+        }
+
+        public DataTable GetMostPopularClub()
+        {
+            var table = new DataTable();
+
+            using (var conn = DbHelper.GetConnection())
+            using (var cmd = new MySqlCommand(@"
+            SELECT c.club_id, c.club_name, COUNT(m.membership_id) AS total_memberships
+            FROM club c
+            LEFT JOIN membership m ON m.club_id = c.club_id
+            GROUP BY c.club_id, c.club_name
+            LIMIT 1;", conn))
+            using (var adapter = new MySqlDataAdapter(cmd))
+            {
                 conn.Open();
                 adapter.Fill(table);
             }

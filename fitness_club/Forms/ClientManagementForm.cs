@@ -28,6 +28,7 @@ namespace fitness_club.Forms
         {
             _clientsTable = _clientRepository.GetClientsByFilter(_currentFilter);
             dgvClients.DataSource = _clientsTable;
+            dgvClients.AutoResizeColumns();
             dgvClients.ClearSelection();
         }
 
@@ -140,6 +141,8 @@ namespace fitness_club.Forms
             var row = dgvClients.SelectedRows[0];
 
             int clientId = Convert.ToInt32(row.Cells["client_id"].Value);
+            int userId = Convert.ToInt32(row.Cells["user_id"].Value);
+            string login = row.Cells["login"].Value.ToString();
             string fullName = row.Cells["client_full_name"].Value?.ToString() ?? "";
             string phone = row.Cells["client_phone"].Value?.ToString() ?? "";
             string email = row.Cells["client_email"].Value?.ToString() ?? "";
@@ -153,7 +156,7 @@ namespace fitness_club.Forms
             string genderDb = row.Cells["client_gender"].Value?.ToString() ?? "other";
             string statusDb = row.Cells["client_status"].Value?.ToString() ?? "active";
 
-            using (var editForm = new ClientEditForm(clientId, fullName, phone, email, birthDate, genderDb, statusDb))
+            using (var editForm = new ClientEditForm(clientId, userId, login, fullName, phone, email, birthDate, genderDb, statusDb))
             {
                 var result = editForm.ShowDialog(this);
                 if (result == DialogResult.OK)
@@ -173,6 +176,7 @@ namespace fitness_club.Forms
             var row = dgvClients.SelectedRows[0];
 
             int clientId = Convert.ToInt32(row.Cells["client_id"].Value);
+            int userId = Convert.ToInt32(row.Cells["user_id"].Value);
             string fullName = row.Cells["client_full_name"].Value?.ToString() ?? "";
             string phone = row.Cells["client_phone"].Value?.ToString() ?? "";
 
@@ -194,7 +198,7 @@ namespace fitness_club.Forms
 
             try
             {
-                _clientRepository.DeleteClient(clientId);
+                _clientRepository.DeleteClientWithUser(clientId, userId);   
                 LoadClients();
             }
             catch (MySqlException ex)
@@ -216,6 +220,47 @@ namespace fitness_club.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("Error while deleting client: " + ex.Message);
+            }
+        }
+
+        private void btnMemberships_Click(object sender, EventArgs e)
+        {
+            if (dgvClients.SelectedRows.Count == 0)
+                return;
+
+            var row = dgvClients.SelectedRows[0];
+
+            int clientId = Convert.ToInt32(row.Cells["client_id"].Value);
+            string fullName = row.Cells["client_full_name"].Value?.ToString() ?? "";
+
+            using (var form = new MembershipManagementForm(clientId, fullName))
+            {
+                form.ShowDialog(this);
+            }
+        }
+
+        private void btnCreateBooking_Click(object sender, EventArgs e)
+        {
+            if (dgvClients.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Select a client first.");
+                return;
+            }
+
+            var row = dgvClients.SelectedRows[0];
+            int clientId = Convert.ToInt32(row.Cells["client_id"].Value);
+            string fullName = row.Cells["client_full_name"].Value?.ToString() ?? "Client";
+            string status = row.Cells["client_status"].Value?.ToString();
+
+            if (status != "active")
+            {
+                MessageBox.Show("Cannot book for inactive/blocked client.");
+                return;
+            }
+
+            using (var f = new AdminCreateBookingForm(clientId, fullName))
+            {
+                f.ShowDialog(this);
             }
         }
     }

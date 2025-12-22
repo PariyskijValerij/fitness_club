@@ -36,6 +36,7 @@
             this.lblLogin = new System.Windows.Forms.Label();
             this.chkKiev = new System.Windows.Forms.CheckBox();
             this.chkKharkiv = new System.Windows.Forms.CheckBox();
+            this.chkLviv = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -124,11 +125,23 @@
             this.chkKharkiv.Text = "Kharkiv";
             this.chkKharkiv.UseVisualStyleBackColor = true;
             // 
+            // chkLviv
+            // 
+            this.chkLviv.AutoSize = true;
+            this.chkLviv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.chkLviv.Location = new System.Drawing.Point(14, 88);
+            this.chkLviv.Name = "chkLviv";
+            this.chkLviv.Size = new System.Drawing.Size(52, 21);
+            this.chkLviv.TabIndex = 19;
+            this.chkLviv.Text = "Lviv";
+            this.chkLviv.UseVisualStyleBackColor = true;
+            // 
             // ClubFilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 311);
+            this.Controls.Add(this.chkLviv);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chkInactive);
             this.Controls.Add(this.chkActive);
@@ -156,5 +169,6 @@
         private System.Windows.Forms.Label lblLogin;
         private System.Windows.Forms.CheckBox chkKiev;
         private System.Windows.Forms.CheckBox chkKharkiv;
+        private System.Windows.Forms.CheckBox chkLviv;
     }
 }

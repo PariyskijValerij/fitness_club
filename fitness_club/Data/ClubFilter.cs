@@ -6,5 +6,6 @@
         public bool FilterInactive { get; set; }
         public bool FilterKharkiv { get; set; }
         public bool FilterKyiv { get; set; }
+        public bool FilterLviv { get; set; }
     }
 }

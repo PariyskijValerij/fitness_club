@@ -17,6 +17,7 @@ namespace fitness_club.Forms
         public StatisticsForm()
         {
             InitializeComponent();
+            UpdateSummary();
         }
 
         private void LoadTable(DataTable table, string title)
@@ -26,15 +27,49 @@ namespace fitness_club.Forms
             lblTitle.Text = title;
         }
 
+        private void UpdateSummary()
+        {
+            var popType = _statisticsRepository.GetMostPopularMembershipType();
+            if (popType.Rows.Count > 0)
+            {
+                var row = popType.Rows[0];
+                string name = row["membership_name"].ToString();
+                int count = Convert.ToInt32(row["total_memberships"]);
+
+                lblPopularMembership.Text =
+                    $"Most popular membership: {name} ({count} memberships)";
+            }
+            else
+            {
+                lblPopularMembership.Text = "Most popular membership: no data.";
+            }
+
+            var popClub = _statisticsRepository.GetMostPopularClub();
+            if (popClub.Rows.Count > 0)
+            {
+                var row = popClub.Rows[0];
+                string clubName = row["club_name"].ToString();
+                int count = Convert.ToInt32(row["total_memberships"]);
+
+                lblPopularClub.Text =
+                    $"Club with most memberships: {clubName} ({count} memberships)";
+            }
+            else
+            {
+                lblPopularClub.Text = "Club with most memberships: no data.";
+            }
+        }
+
         private void btnClientsPerClub_Click(object sender, EventArgs e)
         {
             var table = _statisticsRepository.GetActiveClientsPerClub();
             LoadTable(table, "Active clients per club");
         }
+
         private void btnRevenue_Click(object sender, EventArgs e)
         {
             var table = _statisticsRepository.GetRevenueByMembershipType();
-            LoadTable(table, "Membership statuses per club");
+            LoadTable(table, "Revenue analysis");
         }
 
         private void btnTrainerWorkload_Click(object sender, EventArgs e)
@@ -65,7 +100,7 @@ namespace fitness_club.Forms
 
                 if (sfd.ShowDialog(this) == DialogResult.OK)
                 {
-                    PdfReportHelper.ExportDataTableToPdf(
+                    PdfReportHelper.ExportDataTableToPdfTable(
                         table,
                         "Active Club Memberships",
                         sfd.FileName
@@ -94,7 +129,7 @@ namespace fitness_club.Forms
                     string title = $"TrainerWorkload_" +
                                    $"({from:dd.MM.yyyy} – {to:dd.MM.yyyy})";
 
-                    PdfReportHelper.ExportDataTableToPdf(
+                    PdfReportHelper.ExportDataTableToPdfTable(
                         table,
                         title,
                         sfd.FileName

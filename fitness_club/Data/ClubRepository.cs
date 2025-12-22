@@ -22,9 +22,10 @@ namespace fitness_club.Data
                 cmd.Connection = conn;
 
                 string sql = @"
-                SELECT club_id, club_name, city, club_address, club_description, working_hours,
-                club_support_phone, club_status
-                FROM club
+                SELECT c.club_id, c.club_name, c.city, c.club_address, c.club_description, c.working_hours,
+                c.club_support_phone, c.club_status, COUNT(DISTINCT m.client_id) AS total_clients,
+                SUM(m.membership_status = 'active') AS active_memberships
+                FROM club c LEFT JOIN membership m ON m.club_id = c.club_id
                 WHERE 1=1";
 
                 if (filter != null)
@@ -35,6 +36,8 @@ namespace fitness_club.Data
                         citiesValues.Add("Kharkiv");
                     if (filter.FilterKyiv)
                         citiesValues.Add("Kyiv");
+                    if (filter.FilterLviv)
+                        citiesValues.Add("Lviv");
 
                     if (citiesValues.Count > 0)
                     {
@@ -69,6 +72,12 @@ namespace fitness_club.Data
                         sql += " AND club_status IN (" + string.Join(", ", paramNames) + ")";
                     }
                 }
+
+                sql += @"
+                        GROUP BY c.club_id, c.club_name, c.city, c.club_address, c.club_description, c.working_hours,
+                        c.club_support_phone, c.club_status
+                        ORDER BY c.club_name;";
+
                 cmd.CommandText = sql;
                 using (var adapter = new MySqlDataAdapter(cmd))
                 {

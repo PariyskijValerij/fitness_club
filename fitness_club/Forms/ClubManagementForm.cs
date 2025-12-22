@@ -28,6 +28,15 @@ namespace fitness_club.Forms
         {
             _clubsTable = _clubRepository.GetClubByFilter(_currentFilter);
             dgvClubs.DataSource = _clubsTable;
+
+            if (dgvClubs.Columns.Contains("total_clients"))
+                dgvClubs.Columns["total_clients"].HeaderText = "Clients";
+
+            if (dgvClubs.Columns.Contains("active_memberships"))
+                dgvClubs.Columns["active_memberships"].HeaderText = "Active memberships";
+
+
+            dgvClubs.AutoResizeColumns();
             dgvClubs.ClearSelection();
         }
 
@@ -46,9 +55,7 @@ namespace fitness_club.Forms
             {
                 if (row.IsNewRow) continue;
                 string clubName = row.Cells["club_name"].Value?.ToString().ToLower() ?? "";
-                //string clubAddress = row.Cells["club_address"].Value?.ToString().ToLower() ?? "";
                 string clubDescription = row.Cells["club_description"].Value?.ToString().ToLower() ?? "";
-                //string clubCity = row.Cells["city"].Value?.ToString().ToLower() ?? "";
                 bool match =
                     clubName.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     clubDescription.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0;
@@ -87,6 +94,7 @@ namespace fitness_club.Forms
                 filterForm.FilterInactive = _currentFilter.FilterInactive;
                 filterForm.FilterKharkiv = _currentFilter.FilterKharkiv;
                 filterForm.FilterKyiv = _currentFilter.FilterKyiv;
+                filterForm.FilterLviv = _currentFilter.FilterLviv;
 
                 var result = filterForm.ShowDialog();
 
@@ -96,6 +104,7 @@ namespace fitness_club.Forms
                     _currentFilter.FilterInactive = filterForm.FilterInactive;
                     _currentFilter.FilterKharkiv = filterForm.FilterKharkiv;
                     _currentFilter.FilterKyiv = filterForm.FilterKyiv;
+                    _currentFilter.FilterLviv = filterForm.FilterLviv;
 
                     LoadClubs();
                 }
@@ -165,6 +174,7 @@ namespace fitness_club.Forms
 
             var confirm = MessageBox.Show(
                 $"Are you sure you want to delete club:\n" +
+                $"ID: {clubId}\n" +
                 $"Name: {name}\n" +
                 $"City: {city}\n" +
                 $"This action cannot be undone.",

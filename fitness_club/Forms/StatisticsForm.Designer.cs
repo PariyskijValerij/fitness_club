@@ -42,6 +42,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
+            this.lblPopularMembership = new System.Windows.Forms.Label();
+            this.lblPopularClub = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatistics)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,7 +107,7 @@
             this.dgvStatistics.ReadOnly = true;
             this.dgvStatistics.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvStatistics.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStatistics.Size = new System.Drawing.Size(646, 501);
+            this.dgvStatistics.Size = new System.Drawing.Size(646, 451);
             this.dgvStatistics.TabIndex = 18;
             // 
             // lblTitle
@@ -202,11 +204,33 @@
             this.dtpFrom.TabIndex = 24;
             this.dtpFrom.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
             // 
+            // lblPopularMembership
+            // 
+            this.lblPopularMembership.AutoSize = true;
+            this.lblPopularMembership.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblPopularMembership.Location = new System.Drawing.Point(19, 533);
+            this.lblPopularMembership.Name = "lblPopularMembership";
+            this.lblPopularMembership.Size = new System.Drawing.Size(150, 20);
+            this.lblPopularMembership.TabIndex = 28;
+            this.lblPopularMembership.Text = "PopularMembership";
+            // 
+            // lblPopularClub
+            // 
+            this.lblPopularClub.AutoSize = true;
+            this.lblPopularClub.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblPopularClub.Location = new System.Drawing.Point(19, 570);
+            this.lblPopularClub.Name = "lblPopularClub";
+            this.lblPopularClub.Size = new System.Drawing.Size(95, 20);
+            this.lblPopularClub.TabIndex = 29;
+            this.lblPopularClub.Text = "PopularClub";
+            // 
             // StatisticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 563);
+            this.ClientSize = new System.Drawing.Size(857, 615);
+            this.Controls.Add(this.lblPopularClub);
+            this.Controls.Add(this.lblPopularMembership);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dtpTo);
@@ -223,7 +247,7 @@
             this.Controls.Add(this.btnClientsPerClub);
             this.Name = "StatisticsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Statistics";
+            this.Text = "Statistics/Reports";
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatistics)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -246,5 +270,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtpTo;
         private System.Windows.Forms.DateTimePicker dtpFrom;
+        private System.Windows.Forms.Label lblPopularMembership;
+        private System.Windows.Forms.Label lblPopularClub;
     }
 }

@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.btnOpenClients = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnManageClubs = new System.Windows.Forms.Button();
             this.btnManageMembershipTypes = new System.Windows.Forms.Button();
             this.btnStatistics = new System.Windows.Forms.Button();
+            this.btnManageTrainers = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOpenClients
@@ -45,16 +46,16 @@
             this.btnOpenClients.UseVisualStyleBackColor = true;
             this.btnOpenClients.Click += new System.EventHandler(this.btnOpenClients_Click);
             // 
-            // button1
+            // btnManageClubs
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button1.Location = new System.Drawing.Point(326, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 59);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Manage Clubs";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnManageClubs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnManageClubs.Location = new System.Drawing.Point(326, 22);
+            this.btnManageClubs.Name = "btnManageClubs";
+            this.btnManageClubs.Size = new System.Drawing.Size(145, 59);
+            this.btnManageClubs.TabIndex = 2;
+            this.btnManageClubs.Text = "Manage Clubs";
+            this.btnManageClubs.UseVisualStyleBackColor = true;
+            this.btnManageClubs.Click += new System.EventHandler(this.btnManageClubs_Click);
             // 
             // btnManageMembershipTypes
             // 
@@ -72,24 +73,37 @@
             this.btnStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnStatistics.Location = new System.Drawing.Point(643, 22);
             this.btnStatistics.Name = "btnStatistics";
-            this.btnStatistics.Size = new System.Drawing.Size(145, 40);
+            this.btnStatistics.Size = new System.Drawing.Size(145, 59);
             this.btnStatistics.TabIndex = 4;
-            this.btnStatistics.Text = "Statistics";
+            this.btnStatistics.Text = "Statistics and Reports";
             this.btnStatistics.UseVisualStyleBackColor = true;
             this.btnStatistics.Click += new System.EventHandler(this.btnStatistics_Click);
+            // 
+            // btnManageTrainers
+            // 
+            this.btnManageTrainers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnManageTrainers.Location = new System.Drawing.Point(24, 87);
+            this.btnManageTrainers.Name = "btnManageTrainers";
+            this.btnManageTrainers.Size = new System.Drawing.Size(145, 59);
+            this.btnManageTrainers.TabIndex = 5;
+            this.btnManageTrainers.Text = "Manage Trainers";
+            this.btnManageTrainers.UseVisualStyleBackColor = true;
+            this.btnManageTrainers.Click += new System.EventHandler(this.btnManageTrainers_Click);
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnManageTrainers);
             this.Controls.Add(this.btnStatistics);
             this.Controls.Add(this.btnManageMembershipTypes);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnManageClubs);
             this.Controls.Add(this.btnOpenClients);
             this.Name = "AdminForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin Dashboard";
+            this.Load += new System.EventHandler(this.AdminForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -97,8 +111,9 @@
         #endregion
 
         private System.Windows.Forms.Button btnOpenClients;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnManageClubs;
         private System.Windows.Forms.Button btnManageMembershipTypes;
         private System.Windows.Forms.Button btnStatistics;
+        private System.Windows.Forms.Button btnManageTrainers;
     }
 }

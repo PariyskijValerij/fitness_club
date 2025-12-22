@@ -9,16 +9,24 @@ namespace fitness_club.Forms
         private readonly ClientRepository _clientRepository = new ClientRepository();
         private readonly UserRepository _userRepository  = new UserRepository();
         private readonly int _clientId;
+        private readonly int _userId;
+        private readonly ValidationHelper _validationHelper = new ValidationHelper();
 
-        public ClientEditForm(int clientId, string fullName, string phone, string email, DateTime? birthDate, string genderDb, string statusDb)
+        public ClientEditForm(int clientId, int userId, string login, string fullName, string phone, string email, 
+            DateTime? birthDate, string genderDb, string statusDb)
         {
             InitializeComponent();
             _clientId = clientId;
+            _userId = userId;
 
+            txtLogin.Text = login;
             txtFullName.Text = fullName;
             txtPhone.Text = phone;
             txtEmail.Text = email;
 
+            dtpBirthDate.MaxDate = DateTime.Today.AddYears(-16);
+            dtpBirthDate.MinDate = DateTime.Today.AddYears(-90);
+            dtpBirthDate.Value = dtpBirthDate.MaxDate;
             if (birthDate.HasValue)
             {
                 dtpBirthDate.Value = birthDate.Value;
@@ -74,13 +82,31 @@ namespace fitness_club.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string login = this.txtLogin.Text;
+            if (string.IsNullOrEmpty(login))
+            {
+                MessageBox.Show("Login is required");
+                return;
+            }
+            if (_userRepository.isLoginTaken(login, _userId))
+            {
+                MessageBox.Show("This login is already used by another user.");
+                return;
+            }
+            string password = txtPassword.Text;
+
             string fullName = txtFullName.Text.Trim();
             if (string.IsNullOrEmpty(fullName))
             {
                 MessageBox.Show("Full name is required");
                 return;
             }
-
+            string phone = txtPhone.Text.Trim();
+            if (!txtPhone.MaskFull)
+            {
+                MessageBox.Show("Phone is required");
+                return;
+            }
             if (cbGender.SelectedItem == null)
             {
                 MessageBox.Show("Select gender");
@@ -92,9 +118,14 @@ namespace fitness_club.Forms
                 MessageBox.Show("Select status");
                 return;
             }
-
-            string phone = txtPhone.Text.Trim();
             string email = txtEmail.Text.Trim();
+         
+            if (!_validationHelper.isEmailValid(email) && !string.IsNullOrEmpty(email))
+            {
+                MessageBox.Show("Incorrect email format.", "Validation",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             string genderDb;
             switch (cbGender.SelectedItem.ToString())
@@ -138,8 +169,10 @@ namespace fitness_club.Forms
 
             try
             {
-                _clientRepository.UpdateClient(_clientId, fullName, phone, email, birthDate, genderDb, statusDb);
-                _userRepository.UpdateUserStatusByClient(_clientId, statusDb);
+                string newPassword = string.IsNullOrEmpty(password) ? null : password;
+
+                _clientRepository.UpdateClient(_clientId, _userId, login, newPassword, fullName, phone, email, 
+                    birthDate, genderDb, statusDb);
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();

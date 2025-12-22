@@ -8,95 +8,185 @@ namespace fitness_club.Data
 {
     public static class PdfReportHelper
     {
-        public static void ExportDataTableToPdf(DataTable table, string reportTitle, string filePath)
+        private static readonly Font TitleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+        private static readonly Font HeaderFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11);
+        private static readonly Font NormalFont = FontFactory.GetFont(FontFactory.HELVETICA, 11);
+        private static readonly Font FooterFont = FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, 10);
+
+        public static void ExportDataTableToPdfTable(DataTable table, string reportTitle, string filePath)
         {
-            if (table == null) throw new ArgumentNullException("table");
+            if (table == null) throw new ArgumentNullException(nameof(table));
 
             using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                var doc = new Document(PageSize.A4, 50f, 20f, 50f, 50f);
-
+                var doc = new Document(PageSize.A4, 30f, 30f, 30f, 30f);
                 var writer = PdfWriter.GetInstance(doc, stream);
-
-                writer.PageEvent = new PdfFooterEvent();
 
                 doc.Open();
 
-                var titleFont = FontFactory.GetFont("Arial", 16, Font.BOLD);
-                var headerFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
-                var dataFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
-                var separatorFont = FontFactory.GetFont("Arial", 10, Font.ITALIC, BaseColor.GRAY);
+                var title = new Paragraph(reportTitle, TitleFont)
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 15f
+                };
+                doc.Add(title);
 
-                var titleParagraph = new Paragraph(reportTitle, titleFont);
-                titleParagraph.Alignment = Element.ALIGN_CENTER;
-                titleParagraph.SpacingAfter = 20f; 
-                doc.Add(titleParagraph);
+                var pdfTable = new PdfPTable(table.Columns.Count)
+                {
+                    WidthPercentage = 100
+                };
+                pdfTable.SpacingAfter = 0f;
+                pdfTable.HeaderRows = 1;
+
+                foreach (DataColumn column in table.Columns)
+                {
+                    var cell = new PdfPCell(new Phrase(column.ColumnName, HeaderFont))
+                    {
+                        BackgroundColor = new BaseColor(230, 230, 230),
+                        HorizontalAlignment = Element.ALIGN_CENTER,
+                        VerticalAlignment = Element.ALIGN_MIDDLE,
+                        Padding = 5f
+                    };
+                    pdfTable.AddCell(cell);
+                }
 
                 foreach (DataRow row in table.Rows)
                 {
-                    var entryParagraph = new Paragraph();
-
-                    entryParagraph.KeepTogether = true;
-
-                    entryParagraph.IndentationLeft = 40f;
-                    entryParagraph.SpacingAfter = 10f;
-
-                    foreach (DataColumn column in table.Columns)
+                    foreach (var item in row.ItemArray)
                     {
-                        object rawValue = row[column];
-                        string valueStr;
+                        string value = item?.ToString() ?? "";
 
-                        if (rawValue is DateTime dt)
+                        if (item is DateTime dt)
                         {
-                            valueStr = dt.ToString("dd.MM.yyyy");
-                        }
-                        else
-                        {
-                            valueStr = rawValue?.ToString() ?? "-";
-                            if (valueStr.EndsWith(" 0:00:00"))
-                            {
-                                valueStr = valueStr.Replace(" 0:00:00", "");
-                            }
+                            value = dt.ToString("dd.MM.yyyy");
                         }
 
-                        var fieldName = new Chunk(column.ColumnName + ": ", headerFont);
-                        var fieldValue = new Chunk(valueStr, dataFont);
-
-                        var line = new Paragraph();
-                        line.Add(fieldName);
-                        line.Add(fieldValue);
-
-                        entryParagraph.Add(line);
+                        var cell = new PdfPCell(new Phrase(value, NormalFont))
+                        {
+                            Padding = 4f,
+                            VerticalAlignment = Element.ALIGN_MIDDLE
+                        };
+                        pdfTable.AddCell(cell);
                     }
-
-                    entryParagraph.Add(new Paragraph("_______________________________________", separatorFont));
-
-                    doc.Add(entryParagraph);
-                    doc.Add(new Paragraph(" "));
                 }
 
+                doc.Add(pdfTable);
+
+                AddTimestamp(doc);
+
+                doc.Close();
+                writer.Close();
+            }
+        }
+
+        public static void ExportMembershipReport(string filePath, string clientName, DataRow membershipInfo, DataTable usageHistory)
+        {
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                var doc = new Document(PageSize.A4, 30f, 30f, 30f, 30f);
+                PdfWriter.GetInstance(doc, stream);
+                doc.Open();
+
+                var title = new Paragraph("MEMBERSHIP REPORT", TitleFont)
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 20f
+                };
+                doc.Add(title);
+
+                doc.Add(CreateKeyValuePair("Client Name:", clientName));
+                doc.Add(new Paragraph(" ", NormalFont));
+
+                string type = membershipInfo["membership_name"].ToString();
+                string club = membershipInfo["club_name"].ToString();
+                string start = Convert.ToDateTime(membershipInfo["start_date"]).ToString("dd.MM.yyyy");
+                string end = Convert.ToDateTime(membershipInfo["end_date"]).ToString("dd.MM.yyyy");
+                string status = membershipInfo["membership_status"].ToString().ToUpper();
+
+                doc.Add(CreateKeyValuePair("Membership Type:", type));
+                doc.Add(CreateKeyValuePair("Home Club:", club));
+                doc.Add(CreateKeyValuePair("Validity Period:", $"{start} — {end}"));
+                doc.Add(CreateKeyValuePair("Current Status:", status));
+
+                doc.Add(new Paragraph(" ", NormalFont));
+
+                var tableHeader = new Paragraph("Usage History (Bookings)", HeaderFont)
+                {
+                    SpacingAfter = 10f
+                };
+                doc.Add(tableHeader);
+
+                if (usageHistory != null && usageHistory.Rows.Count > 0)
+                {
+                    PdfPTable historyTable = new PdfPTable(6);
+                    historyTable.WidthPercentage = 100;
+                    historyTable.SetWidths(new float[] { 2f, 1.5f, 3.5f, 3f, 1.5f, 2f });
+
+                    historyTable.SpacingAfter = 0f;
+
+                    string[] headers = { "Date", "Time", "Session", "Trainer", "Room", "Status" };
+                    foreach (var h in headers)
+                    {
+                        var cell = new PdfPCell(new Phrase(h, HeaderFont))
+                        {
+                            BackgroundColor = new BaseColor(230, 230, 230),
+                            HorizontalAlignment = Element.ALIGN_CENTER,
+                            Padding = 5f
+                        };
+                        historyTable.AddCell(cell);
+                    }
+
+                    foreach (DataRow row in usageHistory.Rows)
+                    {
+                        string date = Convert.ToDateTime(row["session_date"]).ToString("dd.MM.yyyy");
+                        string time = row["start_time"].ToString();
+                        string session = row["session_type"].ToString();
+                        string trainer = row["trainer_name"].ToString();
+                        string room = row["room_number"].ToString();
+                        string bookStatus = row["booking_status"].ToString();
+
+                        historyTable.AddCell(new PdfPCell(new Phrase(date, NormalFont)) { Padding = 4f });
+                        historyTable.AddCell(new PdfPCell(new Phrase(time, NormalFont)) { Padding = 4f });
+                        historyTable.AddCell(new PdfPCell(new Phrase(session, NormalFont)) { Padding = 4f });
+                        historyTable.AddCell(new PdfPCell(new Phrase(trainer, NormalFont)) { Padding = 4f });
+                        historyTable.AddCell(new PdfPCell(new Phrase(room, NormalFont)) { Padding = 4f });
+                        historyTable.AddCell(new PdfPCell(new Phrase(bookStatus, NormalFont)) { Padding = 4f });
+                    }
+
+                    doc.Add(historyTable);
+                }
+                else
+                {
+                    var noData = new Paragraph("No bookings found for this membership.", NormalFont)
+                    {
+                        SpacingAfter = 0f,
+                        Font = { Color = BaseColor.DARK_GRAY }
+                    };
+                    doc.Add(noData);
+                }
+
+                AddTimestamp(doc);
                 doc.Close();
             }
         }
 
-        private class PdfFooterEvent : PdfPageEventHelper
+        private static Paragraph CreateKeyValuePair(string label, string value)
         {
-            public override void OnEndPage(PdfWriter writer, Document document)
+            var p = new Paragraph();
+            p.Add(new Chunk(label + " ", HeaderFont));
+            p.Add(new Chunk(value, NormalFont));
+            p.SpacingAfter = 3f;
+            return p;
+        }
+
+        private static void AddTimestamp(Document doc)
+        {
+            var p = new Paragraph($"Report generated: {DateTime.Now:dd.MM.yyyy HH:mm}", FooterFont)
             {
-                PdfContentByte cb = writer.DirectContent;
-
-                var footerFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-
-                cb.BeginText();
-                cb.SetFontAndSize(footerFont, 10);
-
-                cb.SetTextMatrix(document.Left, document.Bottom - 10);
-
-                string text = "Generated: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm");
-                cb.ShowText(text);
-
-                cb.EndText();
-            }
+                Alignment = Element.ALIGN_LEFT,
+                SpacingBefore = 2f 
+            };
+            doc.Add(p);
         }
     }
 }

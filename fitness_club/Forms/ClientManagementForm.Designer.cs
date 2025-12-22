@@ -37,6 +37,8 @@
             this.btnAddClient = new System.Windows.Forms.Button();
             this.btnEditClient = new System.Windows.Forms.Button();
             this.btnDeleteClient = new System.Windows.Forms.Button();
+            this.btnMemberships = new System.Windows.Forms.Button();
+            this.btnCreateBooking = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClients)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,6 +46,11 @@
             // 
             this.dgvClients.AllowUserToAddRows = false;
             this.dgvClients.AllowUserToDeleteRows = false;
+            this.dgvClients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvClients.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvClients.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClients.Location = new System.Drawing.Point(12, 83);
             this.dgvClients.MultiSelect = false;
@@ -136,11 +143,33 @@
             this.btnDeleteClient.UseVisualStyleBackColor = true;
             this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
             // 
+            // btnMemberships
+            // 
+            this.btnMemberships.Location = new System.Drawing.Point(254, 0);
+            this.btnMemberships.Name = "btnMemberships";
+            this.btnMemberships.Size = new System.Drawing.Size(91, 23);
+            this.btnMemberships.TabIndex = 13;
+            this.btnMemberships.Text = "Memberships";
+            this.btnMemberships.UseVisualStyleBackColor = true;
+            this.btnMemberships.Click += new System.EventHandler(this.btnMemberships_Click);
+            // 
+            // btnCreateBooking
+            // 
+            this.btnCreateBooking.Location = new System.Drawing.Point(351, 0);
+            this.btnCreateBooking.Name = "btnCreateBooking";
+            this.btnCreateBooking.Size = new System.Drawing.Size(116, 23);
+            this.btnCreateBooking.TabIndex = 14;
+            this.btnCreateBooking.Text = "Create Booking";
+            this.btnCreateBooking.UseVisualStyleBackColor = true;
+            this.btnCreateBooking.Click += new System.EventHandler(this.btnCreateBooking_Click);
+            // 
             // ClientManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 521);
+            this.Controls.Add(this.btnCreateBooking);
+            this.Controls.Add(this.btnMemberships);
             this.Controls.Add(this.btnDeleteClient);
             this.Controls.Add(this.btnEditClient);
             this.Controls.Add(this.btnAddClient);
@@ -171,5 +200,7 @@
         private System.Windows.Forms.Button btnAddClient;
         private System.Windows.Forms.Button btnEditClient;
         private System.Windows.Forms.Button btnDeleteClient;
+        private System.Windows.Forms.Button btnMemberships;
+        private System.Windows.Forms.Button btnCreateBooking;
     }
 }

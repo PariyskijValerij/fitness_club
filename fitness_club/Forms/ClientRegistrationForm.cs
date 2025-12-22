@@ -8,6 +8,7 @@ namespace fitness_club.Forms
     {
         private readonly UserRepository _userRepository = new UserRepository();
         private readonly ClientRepository _clientRepository = new ClientRepository();
+        private readonly ValidationHelper _validationHelper = new ValidationHelper();
 
         public ClientRegistrationForm()
         {
@@ -18,6 +19,10 @@ namespace fitness_club.Forms
             cbGender.Items.Add("Female");
             cbGender.Items.Add("Other");
             cbGender.SelectedIndex = 0;
+
+            dtpBirthDate.MaxDate = DateTime.Today.AddYears(-16);
+            dtpBirthDate.MinDate = DateTime.Today.AddYears(-90);
+            dtpBirthDate.Value = dtpBirthDate.MaxDate;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -31,6 +36,8 @@ namespace fitness_club.Forms
             lblPasswordError.Visible = false;
             lblConfirmPasswordError.Visible = false;
             lblFullNameError.Visible = false;
+            lblEmailError.Visible = false;
+            lblPhoneError.Visible = false;
             lblGenderError.Visible = false;
             lblGeneralError.Visible = false;
 
@@ -41,7 +48,22 @@ namespace fitness_club.Forms
             string confirmPassword = txtConfirmPassword.Text;
             string fullName = txtFullName.Text.Trim();
             string phone = txtPhone.Text.Trim();
+
+            if (!txtPhone.MaskFull)
+            {
+                lblPhoneError.Text = "Phone is required.";
+                lblPhoneError.Visible = true;
+                hasError = true;
+            }
+
             string email = txtEmail.Text.Trim();
+
+            if (!_validationHelper.isEmailValid(email))
+            {
+                lblEmailError.Text = "Incorrect email format.";
+                lblEmailError.Visible = true;
+                hasError = true;
+            }
 
             if (string.IsNullOrEmpty(login))
             {

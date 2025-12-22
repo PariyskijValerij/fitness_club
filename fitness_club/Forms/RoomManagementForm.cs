@@ -106,6 +106,7 @@ namespace fitness_club.Forms
 
             var confirm = MessageBox.Show(
                 $"Are you sure you want to delete room:\n" +
+                $"ID: {roomId}" +
                 $"Number: {roomNumber}\n" +
                 (floor.HasValue ? $"Floor: {floor}\n" : "") +
                 $"This action cannot be undone.",

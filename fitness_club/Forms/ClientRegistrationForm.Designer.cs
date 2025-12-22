@@ -32,7 +32,6 @@
             this.lblLogin = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtPhone = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFullName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,7 +50,10 @@
             this.lblGenderError = new System.Windows.Forms.Label();
             this.lblGeneralError = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtPhone = new System.Windows.Forms.MaskedTextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
+            this.lblPhoneError = new System.Windows.Forms.Label();
+            this.lblEmailError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtLogin
@@ -90,14 +92,6 @@
             this.label1.Size = new System.Drawing.Size(78, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "Password";
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtPhone.Location = new System.Drawing.Point(239, 142);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(180, 26);
-            this.txtPhone.TabIndex = 10;
             // 
             // label2
             // 
@@ -150,7 +144,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label5.Location = new System.Drawing.Point(235, 227);
+            this.label5.Location = new System.Drawing.Point(468, 32);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 20);
             this.label5.TabIndex = 13;
@@ -159,7 +153,7 @@
             // dtpBirthDate
             // 
             this.dtpBirthDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.dtpBirthDate.Location = new System.Drawing.Point(239, 254);
+            this.dtpBirthDate.Location = new System.Drawing.Point(472, 59);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.ShowCheckBox = true;
             this.dtpBirthDate.Size = new System.Drawing.Size(180, 20);
@@ -169,7 +163,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(235, 280);
+            this.label6.Location = new System.Drawing.Point(468, 85);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 20);
             this.label6.TabIndex = 15;
@@ -180,7 +174,7 @@
             this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cbGender.FormattingEnabled = true;
-            this.cbGender.Location = new System.Drawing.Point(239, 303);
+            this.cbGender.Location = new System.Drawing.Point(472, 108);
             this.cbGender.Name = "cbGender";
             this.cbGender.Size = new System.Drawing.Size(180, 28);
             this.cbGender.TabIndex = 16;
@@ -260,7 +254,7 @@
             this.lblGenderError.AutoSize = true;
             this.lblGenderError.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lblGenderError.ForeColor = System.Drawing.Color.Red;
-            this.lblGenderError.Location = new System.Drawing.Point(235, 334);
+            this.lblGenderError.Location = new System.Drawing.Point(468, 139);
             this.lblGenderError.Name = "lblGenderError";
             this.lblGenderError.Size = new System.Drawing.Size(44, 20);
             this.lblGenderError.TabIndex = 25;
@@ -283,25 +277,61 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label7.Location = new System.Drawing.Point(235, 171);
+            this.label7.Location = new System.Drawing.Point(235, 194);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 20);
             this.label7.TabIndex = 27;
             this.label7.Text = "Email";
             // 
+            // txtPhone
+            // 
+            this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtPhone.Location = new System.Drawing.Point(239, 142);
+            this.txtPhone.Mask = "+380(00)000-00-00";
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(180, 26);
+            this.txtPhone.TabIndex = 29;
+            // 
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtEmail.Location = new System.Drawing.Point(239, 198);
+            this.txtEmail.Location = new System.Drawing.Point(239, 217);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(180, 26);
             this.txtEmail.TabIndex = 28;
+            // 
+            // lblPhoneError
+            // 
+            this.lblPhoneError.AutoSize = true;
+            this.lblPhoneError.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblPhoneError.ForeColor = System.Drawing.Color.Red;
+            this.lblPhoneError.Location = new System.Drawing.Point(235, 171);
+            this.lblPhoneError.Name = "lblPhoneError";
+            this.lblPhoneError.Size = new System.Drawing.Size(44, 20);
+            this.lblPhoneError.TabIndex = 30;
+            this.lblPhoneError.Text = "Error";
+            this.lblPhoneError.Visible = false;
+            // 
+            // lblEmailError
+            // 
+            this.lblEmailError.AutoSize = true;
+            this.lblEmailError.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblEmailError.ForeColor = System.Drawing.Color.Red;
+            this.lblEmailError.Location = new System.Drawing.Point(235, 246);
+            this.lblEmailError.Name = "lblEmailError";
+            this.lblEmailError.Size = new System.Drawing.Size(44, 20);
+            this.lblEmailError.TabIndex = 31;
+            this.lblEmailError.Text = "Error";
+            this.lblEmailError.Visible = false;
             // 
             // ClientRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblEmailError);
+            this.Controls.Add(this.lblPhoneError);
+            this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lblGeneralError);
@@ -318,7 +348,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.label3);
@@ -340,7 +369,6 @@
         private System.Windows.Forms.Label lblLogin;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtFullName;
         private System.Windows.Forms.Label label3;
@@ -359,6 +387,9 @@
         private System.Windows.Forms.Label lblGenderError;
         private System.Windows.Forms.Label lblGeneralError;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.MaskedTextBox txtPhone;
         private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label lblPhoneError;
+        private System.Windows.Forms.Label lblEmailError;
     }
 }

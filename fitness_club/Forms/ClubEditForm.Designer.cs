@@ -40,10 +40,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtWorkingHours = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtSupportPhone = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.txtSupportPhone = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // cbStatus
@@ -72,7 +72,7 @@
             this.txtDescription.Location = new System.Drawing.Point(240, 50);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(180, 20);
+            this.txtDescription.Size = new System.Drawing.Size(180, 46);
             this.txtDescription.TabIndex = 40;
             // 
             // label2
@@ -159,14 +159,6 @@
             this.label5.TabIndex = 47;
             this.label5.Text = "Working hours";
             // 
-            // txtSupportPhone
-            // 
-            this.txtSupportPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtSupportPhone.Location = new System.Drawing.Point(25, 196);
-            this.txtSupportPhone.Name = "txtSupportPhone";
-            this.txtSupportPhone.Size = new System.Drawing.Size(180, 26);
-            this.txtSupportPhone.TabIndex = 50;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -199,14 +191,23 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // txtSupportPhone
+            // 
+            this.txtSupportPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtSupportPhone.Location = new System.Drawing.Point(25, 196);
+            this.txtSupportPhone.Mask = "+380(00)000-00-00";
+            this.txtSupportPhone.Name = "txtSupportPhone";
+            this.txtSupportPhone.Size = new System.Drawing.Size(180, 26);
+            this.txtSupportPhone.TabIndex = 69;
+            // 
             // ClubEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 361);
+            this.Controls.Add(this.txtSupportPhone);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.txtSupportPhone);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtWorkingHours);
             this.Controls.Add(this.label5);
@@ -242,9 +243,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtWorkingHours;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtSupportPhone;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.MaskedTextBox txtSupportPhone;
     }
 }

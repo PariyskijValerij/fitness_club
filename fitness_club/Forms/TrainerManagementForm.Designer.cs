@@ -32,12 +32,11 @@
             this.btnDeleteTrainer = new System.Windows.Forms.Button();
             this.btnEditTrainer = new System.Windows.Forms.Button();
             this.btnAddTrainer = new System.Windows.Forms.Button();
-            this.btnFilter = new System.Windows.Forms.Button();
-            this.btnClearFilter = new System.Windows.Forms.Button();
             this.btnTrainerClearSearch = new System.Windows.Forms.Button();
             this.btnTrainerSearch = new System.Windows.Forms.Button();
-            this.txtClubSearch = new System.Windows.Forms.TextBox();
+            this.txtTrainerSearch = new System.Windows.Forms.TextBox();
             this.dgvTrainers = new System.Windows.Forms.DataGridView();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,6 +48,7 @@
             this.btnSessions.TabIndex = 26;
             this.btnSessions.Text = "Sessions";
             this.btnSessions.UseVisualStyleBackColor = true;
+            this.btnSessions.Click += new System.EventHandler(this.btnSessions_Click);
             // 
             // btnDeleteTrainer
             // 
@@ -72,33 +72,13 @@
             // 
             // btnAddTrainer
             // 
-            this.btnAddTrainer.Location = new System.Drawing.Point(14, 0);
+            this.btnAddTrainer.Location = new System.Drawing.Point(13, 0);
             this.btnAddTrainer.Name = "btnAddTrainer";
             this.btnAddTrainer.Size = new System.Drawing.Size(61, 23);
             this.btnAddTrainer.TabIndex = 23;
             this.btnAddTrainer.Text = "Add";
             this.btnAddTrainer.UseVisualStyleBackColor = true;
             this.btnAddTrainer.Click += new System.EventHandler(this.btnAddTrainer_Click);
-            // 
-            // btnFilter
-            // 
-            this.btnFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnFilter.Location = new System.Drawing.Point(694, 48);
-            this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(116, 29);
-            this.btnFilter.TabIndex = 22;
-            this.btnFilter.Text = "Filter";
-            this.btnFilter.UseVisualStyleBackColor = true;
-            // 
-            // btnClearFilter
-            // 
-            this.btnClearFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnClearFilter.Location = new System.Drawing.Point(816, 48);
-            this.btnClearFilter.Name = "btnClearFilter";
-            this.btnClearFilter.Size = new System.Drawing.Size(116, 29);
-            this.btnClearFilter.TabIndex = 21;
-            this.btnClearFilter.Text = "Clear Filter";
-            this.btnClearFilter.UseVisualStyleBackColor = true;
             // 
             // btnTrainerClearSearch
             // 
@@ -109,6 +89,7 @@
             this.btnTrainerClearSearch.TabIndex = 20;
             this.btnTrainerClearSearch.Text = "Clear";
             this.btnTrainerClearSearch.UseVisualStyleBackColor = true;
+            this.btnTrainerClearSearch.Click += new System.EventHandler(this.btnTrainerClearSearch_Click);
             // 
             // btnTrainerSearch
             // 
@@ -119,19 +100,23 @@
             this.btnTrainerSearch.TabIndex = 19;
             this.btnTrainerSearch.Text = "Search";
             this.btnTrainerSearch.UseVisualStyleBackColor = true;
+            this.btnTrainerSearch.Click += new System.EventHandler(this.btnTrainerSearch_Click);
             // 
-            // txtClubSearch
+            // txtTrainerSearch
             // 
-            this.txtClubSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.txtClubSearch.Location = new System.Drawing.Point(13, 48);
-            this.txtClubSearch.Name = "txtClubSearch";
-            this.txtClubSearch.Size = new System.Drawing.Size(333, 29);
-            this.txtClubSearch.TabIndex = 18;
+            this.txtTrainerSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.txtTrainerSearch.Location = new System.Drawing.Point(13, 48);
+            this.txtTrainerSearch.Name = "txtTrainerSearch";
+            this.txtTrainerSearch.Size = new System.Drawing.Size(333, 29);
+            this.txtTrainerSearch.TabIndex = 18;
             // 
             // dgvTrainers
             // 
             this.dgvTrainers.AllowUserToAddRows = false;
             this.dgvTrainers.AllowUserToDeleteRows = false;
+            this.dgvTrainers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTrainers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTrainers.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvTrainers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -144,22 +129,33 @@
             this.dgvTrainers.Size = new System.Drawing.Size(919, 426);
             this.dgvTrainers.TabIndex = 17;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnRefresh.Location = new System.Drawing.Point(596, 48);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(31, 29);
+            this.btnRefresh.TabIndex = 37;
+            this.btnRefresh.Text = "⟳";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // TrainerManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 521);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnSessions);
             this.Controls.Add(this.btnDeleteTrainer);
             this.Controls.Add(this.btnEditTrainer);
             this.Controls.Add(this.btnAddTrainer);
-            this.Controls.Add(this.btnFilter);
-            this.Controls.Add(this.btnClearFilter);
             this.Controls.Add(this.btnTrainerClearSearch);
             this.Controls.Add(this.btnTrainerSearch);
-            this.Controls.Add(this.txtClubSearch);
+            this.Controls.Add(this.txtTrainerSearch);
             this.Controls.Add(this.dgvTrainers);
             this.Name = "TrainerManagementForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Trainers Management";
             this.Load += new System.EventHandler(this.TrainerManagementForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainers)).EndInit();
@@ -174,11 +170,10 @@
         private System.Windows.Forms.Button btnDeleteTrainer;
         private System.Windows.Forms.Button btnEditTrainer;
         private System.Windows.Forms.Button btnAddTrainer;
-        private System.Windows.Forms.Button btnFilter;
-        private System.Windows.Forms.Button btnClearFilter;
         private System.Windows.Forms.Button btnTrainerClearSearch;
         private System.Windows.Forms.Button btnTrainerSearch;
-        private System.Windows.Forms.TextBox txtClubSearch;
+        private System.Windows.Forms.TextBox txtTrainerSearch;
         private System.Windows.Forms.DataGridView dgvTrainers;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
