@@ -95,6 +95,7 @@
             this.Controls.Add(this.btnBook);
             this.Controls.Add(this.lblClientInfo);
             this.Name = "AdminCreateBookingForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create booking";
             this.Load += new System.EventHandler(this.AdminCreateBookingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAvailableSessions)).EndInit();

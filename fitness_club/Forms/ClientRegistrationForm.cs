@@ -55,6 +55,12 @@ namespace fitness_club.Forms
                 lblPhoneError.Visible = true;
                 hasError = true;
             }
+            if (_clientRepository.IsClientPhoneExists(phone))
+            {
+                lblPhoneError.Text = "A client with this phone number already exists.";
+                lblPhoneError.Visible = true;
+                hasError = true;
+            }
 
             string email = txtEmail.Text.Trim();
 

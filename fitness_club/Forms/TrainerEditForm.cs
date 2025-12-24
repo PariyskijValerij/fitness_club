@@ -197,12 +197,23 @@ namespace fitness_club.Forms
                         MessageBox.Show("Password is required for a new trainer.");
                         return;
                     }
+                    if (_trainerRepository.IsTrainerPhoneExists(phone))
+                    {
+                        MessageBox.Show("This phone number is already used by another trainer.");
+                        return;
+                    }
 
                     _trainerRepository.CreateTrainerWithUser(login, password, userStatusDb,fullName, phone, email, 
                         specialization, genderDb, clubId, hireDate, trainerStatusDb);
                 }
                 else
                 {
+                    if(_trainerRepository.IsTrainerPhoneExists(phone, _trainerId.Value))
+                    {
+                        MessageBox.Show("This phone number is already used by another trainer.");
+                        return;
+                    }
+
                     _trainerRepository.UpdateTrainerWithUser(_trainerId.Value, _userId.Value, login,
                         string.IsNullOrEmpty(password) ? null : password, userStatusDb, fullName, phone, email,
                         specialization, genderDb, clubId, hireDate, trainerStatusDb);

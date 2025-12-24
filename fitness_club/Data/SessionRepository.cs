@@ -228,5 +228,25 @@ namespace fitness_club.Data
                 return count > 0; 
             }
         }
+
+        public void UpdatePastSessionsStatus()
+        {
+            using (var conn = DbHelper.GetConnection())
+            using (var cmd = new MySqlCommand())
+            {
+                cmd.Connection = conn;
+
+                string sql = @"
+                    UPDATE session
+                    SET session_status = 'completed' 
+                    WHERE session_status = 'planned' 
+                    AND ADDTIME(TIMESTAMP(session_date, start_time), SEC_TO_TIME(duration_min * 60)) < NOW();";
+
+                cmd.CommandText = sql;
+                conn.Open();
+
+                int updatedRows = cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

@@ -146,14 +146,14 @@ namespace fitness_club.Data
                 _userRepository.UpdateUser(userId, login, newPassword, userStatusDb);
 
                 using (var cmd = new MySqlCommand(@"
-                UPDATE client
-                SET client_full_name = @fullName,
-                    client_phone = @phone,
-                    client_email = @email,
-                    birth_date = @birth,
-                    client_gender = @gender,
-                    client_status = @status
-                WHERE client_id = @id", conn))
+                    UPDATE client
+                    SET client_full_name = @fullName,
+                        client_phone = @phone,
+                        client_email = @email,
+                        birth_date = @birth,
+                        client_gender = @gender,
+                        client_status = @status
+                    WHERE client_id = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@fullName", fullName);
                     cmd.Parameters.AddWithValue("@phone", string.IsNullOrEmpty(phone) ? (object)DBNull.Value : phone);
@@ -190,6 +190,31 @@ namespace fitness_club.Data
                 }
             }
 
+        }
+
+        public bool IsClientPhoneExists(string phone, int? excludeId = null)
+        {
+            using (var conn = DbHelper.GetConnection())
+            using (var cmd = new MySqlCommand())
+            {
+                cmd.Connection = conn;
+                string sql = @"SELECT COUNT(*) 
+                               FROM client 
+                               WHERE client_phone = @phone";
+
+                if (excludeId.HasValue)
+                {
+                    sql += " AND client_id != @id";
+                    cmd.Parameters.AddWithValue("@id", excludeId.Value);
+                }
+
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@phone", phone);
+
+                conn.Open();
+                long count = Convert.ToInt64(cmd.ExecuteScalar());
+                return count > 0;
+            }
         }
     }
 }

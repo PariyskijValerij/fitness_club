@@ -7,6 +7,7 @@ namespace fitness_club.Forms
     public partial class AdminForm : Form
     {
         private readonly MembershipRepository _membershipRepository = new MembershipRepository();
+        private readonly SessionRepository _sessionRepository = new SessionRepository();
 
         public AdminForm()
         {
@@ -17,10 +18,11 @@ namespace fitness_club.Forms
             try
             {
                 _membershipRepository.UpdateExpiredMemberships();
+                _sessionRepository.UpdatePastSessionsStatus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error updating membership statuses: " + ex.Message);
+                MessageBox.Show("Error updating statuses: " + ex.Message);
             }
         }
 

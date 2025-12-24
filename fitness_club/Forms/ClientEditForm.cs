@@ -107,6 +107,12 @@ namespace fitness_club.Forms
                 MessageBox.Show("Phone is required");
                 return;
             }
+            if (_clientRepository.IsClientPhoneExists(phone, _clientId))
+            {
+                MessageBox.Show("This phone number is already used by another client.");
+                return;
+            }
+
             if (cbGender.SelectedItem == null)
             {
                 MessageBox.Show("Select gender");

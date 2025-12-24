@@ -160,5 +160,30 @@ namespace fitness_club.Data
                 }
             }
         }
+
+        public bool IsTrainerPhoneExists(string phone, int? excludeId = null)
+        {
+            using (var conn = DbHelper.GetConnection())
+            using (var cmd = new MySqlCommand())
+            {
+                cmd.Connection = conn;
+                string sql = @"SELECT COUNT(*) 
+                               FROM trainer
+                               WHERE trainer_phone = @phone";
+
+                if (excludeId.HasValue)
+                {
+                    sql += " AND trainer_id != @id";
+                    cmd.Parameters.AddWithValue("@id", excludeId.Value);
+                }
+
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@phone", phone);
+
+                conn.Open();
+                long count = Convert.ToInt64(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
     }
 }
