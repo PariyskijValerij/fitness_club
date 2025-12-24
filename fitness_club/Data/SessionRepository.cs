@@ -195,7 +195,7 @@ namespace fitness_club.Data
             return table;
         }
 
-        public bool IsRoomOccupied(int roomId, DateTime date, TimeSpan start, int durationMin, int? excludeSessionId = null)
+        public bool IsSessionConflict(int trainerId, int roomId, DateTime date, TimeSpan start, int durationMin, int? excludeSessionId = null)
         {
             TimeSpan end = start.Add(TimeSpan.FromMinutes(durationMin));
 
@@ -206,7 +206,7 @@ namespace fitness_club.Data
                 string sql = @"
                     SELECT COUNT(*) 
                     FROM session    
-                    WHERE room_id = @roomId 
+                    WHERE (room_id = @roomId OR trainer_id = @trainerId)
                     AND session_date = @date
                     AND session_status != 'cancelled'
                     AND (@newStart < end_time AND @newEnd > start_time)";
@@ -218,6 +218,7 @@ namespace fitness_club.Data
                 }
 
                 cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@trainerId", trainerId);
                 cmd.Parameters.AddWithValue("@roomId", roomId);
                 cmd.Parameters.AddWithValue("@date", date.Date);
                 cmd.Parameters.AddWithValue("@newStart", start);

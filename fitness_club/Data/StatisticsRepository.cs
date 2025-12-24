@@ -60,9 +60,10 @@ namespace fitness_club.Data
             using (var cmd = new MySqlCommand(@"
                 SELECT mt.membership_name, 
                 COUNT(m.membership_id) AS total_sold, 
-                IFNULL(SUM(mt.price_per_month), 0) AS total_revenue
+                IFNULL(SUM(mt.price_per_month * mt.duration_months), 0) AS total_revenue
                 FROM membership_type mt
                 LEFT JOIN membership m ON mt.membership_type_id = m.membership_type_id
+                WHERE YEAR(m.start_date) = YEAR(CURDATE())
                 GROUP BY mt.membership_type_id, mt.membership_name
                 ORDER BY total_revenue DESC;", conn))
             using (var adapter = new MySqlDataAdapter(cmd))
@@ -141,7 +142,9 @@ namespace fitness_club.Data
             SELECT mt.membership_type_id, mt.membership_name, COUNT(m.membership_id) AS total_memberships
             FROM membership_type mt
             JOIN membership m ON m.membership_type_id = mt.membership_type_id
+            WHERE m.membership_status = 'active'
             GROUP BY mt.membership_type_id, mt.membership_name
+            ORDER BY total_memberships DESC
             LIMIT 1;", conn))
             using (var adapter = new MySqlDataAdapter(cmd))
             {
@@ -161,7 +164,9 @@ namespace fitness_club.Data
             SELECT c.club_id, c.club_name, COUNT(m.membership_id) AS total_memberships
             FROM club c
             LEFT JOIN membership m ON m.club_id = c.club_id
+            WHERE m.membership_status = 'active'
             GROUP BY c.club_id, c.club_name
+            ORDER BY total_memberships DESC
             LIMIT 1;", conn))
             using (var adapter = new MySqlDataAdapter(cmd))
             {

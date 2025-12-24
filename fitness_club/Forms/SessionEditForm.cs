@@ -187,12 +187,12 @@ namespace fitness_club.Forms
             TimeSpan startTime = dtpStartTime.Value.TimeOfDay;
             int duration = (int)numDuration.Value;
 
-            bool isOccupied = _sessionRepository.IsRoomOccupied(roomId, date, startTime, duration, _sessionId);
+            bool isOccupied = _sessionRepository.IsSessionConflict(_trainerId, roomId, date, startTime, duration, _sessionId);
 
             if (isOccupied)
             {
                 MessageBox.Show(
-                    $"The room is already booked for this time interval.\nDate: {date:d}\nTime: {startTime}",
+                    $"The room or trainer is already booked for this time interval.\nDate: {date:d}\nTime: {startTime}",
                     "Schedule Conflict",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);

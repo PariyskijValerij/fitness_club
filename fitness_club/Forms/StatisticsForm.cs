@@ -37,7 +37,7 @@ namespace fitness_club.Forms
                 int count = Convert.ToInt32(row["total_memberships"]);
 
                 lblPopularMembership.Text =
-                    $"Most popular membership: {name} ({count} memberships)";
+                    $"Most popular membership: {name} ({count} active memberships)";
             }
             else
             {
@@ -52,7 +52,7 @@ namespace fitness_club.Forms
                 int count = Convert.ToInt32(row["total_memberships"]);
 
                 lblPopularClub.Text =
-                    $"Club with most memberships: {clubName} ({count} memberships)";
+                    $"Club with most memberships: {clubName} ({count} active memberships)";
             }
             else
             {
@@ -69,7 +69,7 @@ namespace fitness_club.Forms
         private void btnRevenue_Click(object sender, EventArgs e)
         {
             var table = _statisticsRepository.GetRevenueByMembershipType();
-            LoadTable(table, "Revenue analysis");
+            LoadTable(table, "Revenue analysis (current year)");
         }
 
         private void btnTrainerWorkload_Click(object sender, EventArgs e)
