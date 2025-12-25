@@ -33,6 +33,8 @@
             this.btnManageMembershipTypes = new System.Windows.Forms.Button();
             this.btnStatistics = new System.Windows.Forms.Button();
             this.btnManageTrainers = new System.Windows.Forms.Button();
+            this.lblPopularClub = new System.Windows.Forms.Label();
+            this.lblPopularMembership = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnOpenClients
@@ -90,11 +92,33 @@
             this.btnManageTrainers.UseVisualStyleBackColor = true;
             this.btnManageTrainers.Click += new System.EventHandler(this.btnManageTrainers_Click);
             // 
+            // lblPopularClub
+            // 
+            this.lblPopularClub.AutoSize = true;
+            this.lblPopularClub.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblPopularClub.Location = new System.Drawing.Point(32, 404);
+            this.lblPopularClub.Name = "lblPopularClub";
+            this.lblPopularClub.Size = new System.Drawing.Size(95, 20);
+            this.lblPopularClub.TabIndex = 31;
+            this.lblPopularClub.Text = "PopularClub";
+            // 
+            // lblPopularMembership
+            // 
+            this.lblPopularMembership.AutoSize = true;
+            this.lblPopularMembership.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblPopularMembership.Location = new System.Drawing.Point(32, 367);
+            this.lblPopularMembership.Name = "lblPopularMembership";
+            this.lblPopularMembership.Size = new System.Drawing.Size(150, 20);
+            this.lblPopularMembership.TabIndex = 30;
+            this.lblPopularMembership.Text = "PopularMembership";
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblPopularClub);
+            this.Controls.Add(this.lblPopularMembership);
             this.Controls.Add(this.btnManageTrainers);
             this.Controls.Add(this.btnStatistics);
             this.Controls.Add(this.btnManageMembershipTypes);
@@ -105,6 +129,7 @@
             this.Text = "Admin Dashboard";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -115,5 +140,7 @@
         private System.Windows.Forms.Button btnManageMembershipTypes;
         private System.Windows.Forms.Button btnStatistics;
         private System.Windows.Forms.Button btnManageTrainers;
+        private System.Windows.Forms.Label lblPopularClub;
+        private System.Windows.Forms.Label lblPopularMembership;
     }
 }

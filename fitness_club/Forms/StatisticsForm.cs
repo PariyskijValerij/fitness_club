@@ -32,12 +32,19 @@ namespace fitness_club.Forms
             var popType = _statisticsRepository.GetMostPopularMembershipType();
             if (popType.Rows.Count > 0)
             {
-                var row = popType.Rows[0];
-                string name = row["membership_name"].ToString();
-                int count = Convert.ToInt32(row["total_memberships"]);
+                string count = popType.Rows[0]["active_count"].ToString();
+
+                List<string> memNames = new List<string>();
+
+                foreach (DataRow row in popType.Rows)
+                {
+                    memNames.Add(row["membership_name"].ToString());
+                }
+
+                string distinctNames = string.Join(", ", memNames);
 
                 lblPopularMembership.Text =
-                    $"Most popular membership: {name} ({count} active memberships)";
+                    $"Most popular membership: {distinctNames} ({count} active memberships)";
             }
             else
             {
@@ -47,12 +54,19 @@ namespace fitness_club.Forms
             var popClub = _statisticsRepository.GetMostPopularClub();
             if (popClub.Rows.Count > 0)
             {
-                var row = popClub.Rows[0];
-                string clubName = row["club_name"].ToString();
-                int count = Convert.ToInt32(row["total_memberships"]);
+                string count = popClub.Rows[0]["active_memberships"].ToString();
+
+                List<string> clubNames = new List<string>();
+
+                foreach (DataRow row in popClub.Rows)
+                {
+                    clubNames.Add(row["club_name"].ToString());
+                }
+
+                string distinctNames = string.Join(", ", clubNames);
 
                 lblPopularClub.Text =
-                    $"Club with most memberships: {clubName} ({count} active memberships)";
+                    $"Club with most memberships: {distinctNames} ({count} active memberships)";
             }
             else
             {

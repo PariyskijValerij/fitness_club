@@ -139,13 +139,18 @@ namespace fitness_club.Data
 
             using (var conn = DbHelper.GetConnection())
             using (var cmd = new MySqlCommand(@"
-            SELECT mt.membership_type_id, mt.membership_name, COUNT(m.membership_id) AS total_memberships
-            FROM membership_type mt
-            JOIN membership m ON m.membership_type_id = mt.membership_type_id
-            WHERE m.membership_status = 'active'
-            GROUP BY mt.membership_type_id, mt.membership_name
-            ORDER BY total_memberships DESC
-            LIMIT 1;", conn))
+                SELECT mt.membership_name, COUNT(m.membership_id) AS active_count
+                FROM membership_type mt
+                JOIN membership m ON m.membership_type_id = mt.membership_type_id
+                WHERE m.membership_status = 'active'
+                GROUP BY mt.membership_type_id, mt.membership_name
+                HAVING active_count = (
+                    SELECT COUNT(m2.membership_id)
+                    FROM membership m2
+                    WHERE m2.membership_status = 'active'
+                    GROUP BY m2.membership_type_id
+                    ORDER BY COUNT(m2.membership_id) DESC
+                    LIMIT 1);", conn))
             using (var adapter = new MySqlDataAdapter(cmd))
             {
                 conn.Open();
@@ -161,13 +166,18 @@ namespace fitness_club.Data
 
             using (var conn = DbHelper.GetConnection())
             using (var cmd = new MySqlCommand(@"
-            SELECT c.club_id, c.club_name, COUNT(m.membership_id) AS total_memberships
-            FROM club c
-            LEFT JOIN membership m ON m.club_id = c.club_id
-            WHERE m.membership_status = 'active'
-            GROUP BY c.club_id, c.club_name
-            ORDER BY total_memberships DESC
-            LIMIT 1;", conn))
+                SELECT c.club_name, COUNT(m.membership_id) AS active_memberships
+                FROM club c
+                JOIN membership m ON m.club_id = c.club_id
+                WHERE m.membership_status = 'active'
+                GROUP BY c.club_id, c.club_name
+                HAVING active_memberships = (
+                    SELECT COUNT(m2.membership_id)
+                    FROM membership m2
+                    WHERE m2.membership_status = 'active'
+                    GROUP BY m2.club_id
+                    ORDER BY COUNT(m2.membership_id) DESC
+                    LIMIT 1);", conn))
             using (var adapter = new MySqlDataAdapter(cmd))
             {
                 conn.Open();
