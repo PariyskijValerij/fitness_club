@@ -17,7 +17,7 @@ namespace fitness_club.Data
 
                 string sql = @"
                     SELECT s.session_id, s.session_type, s.session_date, s.start_time, s.end_time,
-                    s.duration_min, s.difficulty_level, s.session_status, r.room_number, c.club_name, r.capacity,
+                    s.duration_min, s.difficulty_level, s.session_status, r.room_id, r.room_number, c.club_name, r.capacity,
                     COUNT(b.membership_id) AS confirmed_bookings,
                     ROUND(COUNT(CASE WHEN b.booking_status = 'confirmed' THEN 1 END) / r.capacity * 100, 1) 
                     AS occupancy_percent
