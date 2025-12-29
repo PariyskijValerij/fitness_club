@@ -24,7 +24,7 @@ namespace fitness_club.Data
                 string sql = @"
                 SELECT c.club_id, c.club_name, c.city, c.club_address, c.club_description, c.working_hours,
                 c.club_support_phone, c.club_status, COUNT(DISTINCT m.client_id) AS total_clients,
-                SUM(m.membership_status = 'active') AS active_memberships
+                IFNULL(SUM(m.membership_status = 'active'), 0) AS active_memberships
                 FROM club c LEFT JOIN membership m ON m.club_id = c.club_id
                 WHERE 1=1";
 
