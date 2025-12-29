@@ -81,6 +81,11 @@ namespace fitness_club.Forms
 
             string workingHours = txtWorkingHours.Text.Trim();
             string supportPhone = txtSupportPhone.Text.Trim();
+            if (!txtSupportPhone.MaskFull)
+            {
+                MessageBox.Show("Phone is required");
+                return;
+            }
             string statusDb = cbStatus.SelectedItem?.ToString() == "Inactive" ? "inactive" : "active";
 
             try
